@@ -1,0 +1,5 @@
+homepage: "https://www.hdmarketing.hu/"
+documentation: "https://hdmarketing.hu/fb-ga4-gtm-template/"
+versions:
+  - sha: b588bc2d376d0f6390e2f2ca9ecd3077a49f59f4
+    changeNotes: Initial release.
