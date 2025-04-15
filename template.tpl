@@ -521,13 +521,10 @@ if (data.enhancedEcommerce) {
   if (!ecommerce.items || getType(ecommerce.items) !== 'array') return fail('Facebook pixel: Most recently pushed "ecommerce" object did not have a valid "products" array.');
   eecObjectProps = {
     content_type: 'product',
-    content_ids: ecommerce.items.map(function(a) {return "'"+a.item_id+"'";}),
+    content_ids: ecommerce.items.map(function(a) {return a.item_id;}),
     contents: ecommerce.items.map(parseEecObj),
-    value: ecommerce.items.reduce((acc, cur) => {
-      const curVal = math.round(makeNumber(cur.price || 0) * (cur.quantity || 1) * 100) / 100;
-      return acc + curVal;
-    }, 0.0),
-    currency: ecommerce.currency || 'USD'
+    value: ecommerce.value || ecommerce.items[0].price,
+    currency: ecommerce.currency || 'HUF'
   };
   if (['InitiateCheckout', 'AddPaymentInfo', 'Purchase'].indexOf(eventName) > -1) eecObjectProps.num_items = ecommerce.items.reduce((acc,cur) => {
     return acc + makeNumber(cur.quantity || 1);
